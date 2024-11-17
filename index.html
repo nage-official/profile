@@ -8,7 +8,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Roboto', sans-serif;
-      background: url('//ecimg.cafe24img.com/pg404b58344382077/nageofficial/web/image/%E1%84%8B%E1%85%A7%E1%86%B8%E1%84%89%E1%85%A5%2001%20%E1%84%8B%E1%85%A1%E1%84%90%E1%85%B3%E1%84%87%E1%85%A9%E1%84%83%E1%85%B3%201.jpg') no-repeat center center fixed;
+      background: url('bk_2.jpeg') no-repeat center center fixed;
       background-size: cover;
       display: flex;
       justify-content: center;
@@ -20,6 +20,7 @@
       padding: 20px;
     }
 
+    /* 배경 이미지 위에 어두운 오버레이 추가 */
     body::before {
       content: "";
       position: absolute;
@@ -89,10 +90,13 @@
     }
 
     .social-links a {
+      display: inline-block; /* inline-block으로 변경하여 하단바 문제 방지 */
       font-size: 24px;
       color: white;
       margin: 0 15px;
       transition: transform 0.3s ease;
+      text-decoration: none; /* 링크의 기본 스타일 제거 */
+      line-height: 1; /* 아이콘의 수직 정렬 문제 해결 */
     }
 
     .social-links a:hover {
@@ -134,6 +138,9 @@
   <div class="social-links">
     <a href="https://www.instagram.com/nageofficiel/" target="_blank" rel="noopener noreferrer">
       <i class="fab fa-instagram"></i>
+    </a>
+    <a href="http://pf.kakao.com/_zBVZG" target="_blank" rel="noopener noreferrer">
+      <i class="fas fa-comment"></i> <!-- 카카오톡 아이콘 -->
     </a>
   </div>
 </div>
