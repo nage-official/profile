@@ -3,592 +3,648 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="theme-color" content="#0F172A">
 
-    <!-- 폰트어썸 아이콘 사용 -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
-    <!-- 프리텐다드 폰트 (CDN) -->
+    <!-- 폰트 및 아이콘 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard/dist/pretendard.css"/>
 
     <title>나쥬 NAGE</title>
 
     <style>
-        /* 초기화 */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* --- Reset & Base --- */
+        :root {
+            --brand-color: #569DF9;
+            --brand-gradient: linear-gradient(135deg, #569DF9, #70aeff);
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+            --bg-deep: #0F172A;
+            --glass-surface: rgba(255, 255, 255, 0.92);
+        }
 
-        /* 화면 전체 배경, 텍스트 스타일 (그라데이션 적용) */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
         body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #569DF9 0%, #8BC6F5 100%);
-            color: #fff;
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-dark);
             display: flex;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        /* 최대 폭 고정(480px)으로 모바일처럼 보이게 */
+        /* --- Main Container (Mobile View) --- */
         .container {
-            max-width: 480px;
             width: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* 헤더 */
-        header {
-            text-align: center;
-            padding: 20px;
-            /*background-color: rgba(255, 255, 255, 0.1);*/
-            /*backdrop-filter: blur(6px);*/
-            /*box-shadow: 0 2px 8px rgba(0,0,0,0.1);*/
-            height: 200px;
-        }
-        .profile-image {
-            width: 120px; height: 120px; border-radius: 50%;
-            margin-top: 70px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        .profile-image:hover {
-            transform: scale(1.08);
-        }
-
-        /* 본문 영역 */
-        .content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* 프로필 영역 */
-        .hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
-        }
-        .profile-name {
-            font-size: 22px;
-            margin-bottom: 8px;
-            font-weight: bold;
-            text-shadow: 0 2px 2px rgba(0,0,0,0.1);
-        }
-        .profile-description {
-            font-size: 12px;
-            line-height: 1.4;
-            opacity: 0.9;
-        }
-
-        /* SNS 아이콘 */
-        .social-links {
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-        }
-        .social-links a {
-            font-size: 24px;
-            color: #fff;
-            text-decoration: none;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-        .social-links a:hover {
-            transform: scale(1.2);
-            color: #ffefef;
-        }
-
-        /* 링크 버튼(공식몰, 스마트스토어 등) */
-        .button-container {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            padding: 0 20px;
-        }
-        .button-container a {
-            display: block;
+            max-width: 460px;
+            min-height: 100vh;
             background: #fff;
-            color: #569DF9;
-            text-align: center;
-            padding: 14px;
-            border-radius: 15px;
-            font-size: 16px;
-            font-weight: 500;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, transform 0.25s ease, color 0.3s ease;
-        }
-        .button-container a:hover {
-            transform: scale(1.05);
-            background-color: #569DF9;
-            color: #fff;
-        }
-        .button-container a:active {
-            transform: translateY(2px);
-        }
-
-        /* 제품 섹션 */
-        .products {
-            padding: 20px 0;
-        }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            padding: 0 20px;
-        }
-        .product-card {
             position: relative;
-            background-color: #fff;
-            color: #333;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-align: center;
-        }
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.16);
-        }
-        .product-card a {
-            display: block;
-            text-decoration: none;
-            color: inherit;
-        }
-        .product-card img {
-            width: 80%;
-            height: auto;
-            margin: 10px auto 0;
-            display: block;
-            border-radius: 10px;
-        }
-        .product-card-content {
-            text-align: center;
-            padding: 10px;
-        }
-        .product-card-content h3 {
-            font-size: 0.9em;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #444;
+            box-shadow: 0 0 80px rgba(0,0,0,0.4);
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
-        /* NEW & RENEWAL 배지 */
-        .badge-group {
+        @media (min-width: 480px) {
+            .container {
+                min-height: 92vh;
+                height: 92vh;
+                border-radius: 40px;
+                /* 스크롤바 숨김 처리 */
+                scrollbar-width: none; 
+                -ms-overflow-style: none;
+            }
+            .container::-webkit-scrollbar { display: none; }
+        }
+
+        /* --- Header Section --- */
+        .header {
+            position: relative;
+            padding: 40px 24px 10px;
+            text-align: center;
+            background: linear-gradient(to bottom, #f8fafc, #fff);
+        }
+
+        .header-top-actions {
             position: absolute;
-            top: 8px;
-            left: 8px;
+            top: 24px; left: 24px; right: 24px;
             display: flex;
-            gap: 6px;
+            justify-content: space-between;
+            z-index: 10;
         }
-        .badge {
+        .icon-btn {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.8);
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-dark);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+        .icon-btn:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+
+        .profile-area {
+            position: relative;
             display: inline-block;
-            padding: 5px 8px;
-            font-size: 0.7em;
-            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .profile-img {
+            width: 110px; height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 12px 30px rgba(86, 157, 249, 0.25);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .profile-area:hover .profile-img { transform: scale(1.05) rotate(-3deg); }
+
+        .brand-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .brand-desc {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* --- Social Links --- */
+        .social-bar {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 24px 0 32px;
+        }
+        .social-item {
+            width: 44px; height: 44px;
+            border-radius: 14px;
+            background: #f1f5f9;
+            color: var(--text-gray);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .social-item:hover {
+            background: var(--brand-color);
             color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        }
-        .badge-new {
-            background-color: #ff5050;
-        }
-        .badge-renewal {
-            background-color: #f5a623;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(86, 157, 249, 0.3);
         }
 
-        .badge-best {
-            background-color: #1c58f5;
+        /* --- Promo Toast (Floating Top) --- */
+        .promo-toast {
+            position: absolute;
+            top: 24px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.4); /* 흰색 기반의 40% 투명도 */
+            backdrop-filter: blur(5px);          /* 블러를 낮춰서 뒤가 더 잘 보이게 함 */
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.5); /* 테두리를 좀 더 밝게 */
+            border-radius: 20px;
+            padding: 16px 22px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--text-dark);            /* 가독성을 위해 글자색은 어둡게 변경 */
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .promo-toast .promo-content h3 { font-size: 15px; font-weight: 700; margin-bottom: 2px; color: var(--text-dark); }
+        .promo-toast .promo-content p { font-size: 12px; opacity: 0.8; font-weight: 500; color: var(--text-gray); }
+        .promo-toast .promo-icon { font-size: 22px; background: var(--brand-color); color: #fff; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .promo-toast .close-toast {
+            margin-left: auto;
+            width: 28px; height: 28px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; opacity: 0.5; cursor: pointer;
+            transition: all 0.2s;
+            background: rgba(0,0,0,0.05);
+            border-radius: 50%;
+            color: var(--text-dark);
+        }
+        .promo-toast .close-toast:hover { opacity: 1; background: rgba(0,0,0,0.2); }
+
+        /* --- Link Buttons --- */
+        .link-list {
+            padding: 0 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .link-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .link-card:hover {
+            border-color: var(--brand-color);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        }
+        .link-icon {
+            font-size: 20px;
+            color: var(--brand-color);
+            margin-right: 16px;
+            width: 32px; text-align: center;
+        }
+        .link-texts { flex: 1; }
+        .link-title { font-size: 15px; font-weight: 700; color: var(--text-dark); margin-bottom: 2px; }
+        .link-sub { font-size: 11px; color: var(--text-gray); font-weight: 500; }
+        .link-arrow { color: #cbd5e1; font-size: 14px; }
+
+        /* --- Section Header --- */
+        .section-header {
+            padding: 40px 24px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .section-title { font-size: 18px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.5px; }
+        .section-more { font-size: 12px; color: var(--text-gray); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+
+        /* --- Best Collection (Horizontal Slider) --- */
+        .slider-wrap {
+            position: relative;
+            padding-bottom: 30px;
+        }
+        .slider-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 16px;
+            padding: 0 24px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .slider-container::-webkit-scrollbar { display: none; }
+
+        .product-card {
+            flex: 0 0 240px;
+            scroll-snap-align: center;
+            text-decoration: none;
+            position: relative;
+        }
+        .product-image-wrapper {
+            width: 100%;
+            aspect-ratio: 4/5;
+            background: #f8f9fa;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 12px;
+        }
+        .product-image-wrapper img {
+            width: 100%; height: 100%;
+            object-fit: contain;
+            padding: 10px;
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover .product-image-wrapper img { transform: scale(1.06); }
+        
+        .product-details { text-align: center; }
+        .p-name { font-size: 15px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px; }
+        .p-desc { font-size: 11px; color: var(--brand-color); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Slider Indicator */
+        .indicator-track {
+            width: 60px; height: 3px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            margin: 20px auto 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .indicator-bar {
+            position: absolute; top: 0; left: 0;
+            width: 33%; height: 100%;
+            background: var(--brand-color);
+            border-radius: 10px;
+            transition: left 0.1s linear;
         }
 
-        /* 푸터 */
+        /* --- Lookbook Grid --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            padding: 0 2px;
+        }
+        .grid-item {
+            aspect-ratio: 1/1;
+            position: relative;
+            overflow: hidden;
+            background: #f1f5f9;
+            cursor: zoom-in; /* 클릭 가능 암시 */
+        }
+        .grid-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .grid-item:hover img { transform: scale(1.08); }
+
+        /* --- Lightbox Modal --- */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* 불투명도를 0.95에서 0.7로 낮춤 */
+            backdrop-filter: blur(6px);    /* 블러 효과를 살짝 완화하여 뒤가 더 잘 보이게 함 */
+            z-index: 2000;
+            display: flex;
+            align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lightbox.active { opacity: 1; visibility: visible; }
+        .lightbox-img {
+            max-width: 90%; max-height: 80%;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lightbox.active .lightbox-img { transform: scale(1); }
+        .lightbox-close {
+            position: absolute;
+            top: 30px; right: 30px;
+            color: #fff; font-size: 30px; cursor: pointer;
+            width: 50px; height: 50px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* --- Footer --- */
         footer {
             text-align: center;
-            padding: 20px;
-            margin-top: auto;
+            padding: 60px 24px 40px;
+            color: #94a3b8;
+            font-size: 11px;
+            font-weight: 400;
+            line-height: 1.6;
         }
-        footer p {
-            font-size: 0.7em;
-            line-height: 1.4;
+
+        /* --- Toast --- */
+        .toast-msg {
+            position: fixed;
+            bottom: 30px; left: 50%;
+            transform: translateX(-50%) translateY(50px);
+            background: rgba(15, 23, 42, 0.9);
             color: #fff;
-            opacity: 0.9;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            opacity: 0; visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
+            white-space: nowrap;
         }
-
-        /* ============ Gallery Section (Slider) ============ */
-        .gallery {
-            position: relative;
-            padding: 20px 0;
-        }
-
-        .slider-container {
-            position: relative;
-            width: 100%;
-            height: 600px; /* 슬라이더 높이 */
-            overflow: hidden;
-        }
-
-        /* 슬라이드: 기본적으로 오른쪽 화면 밖(translateX(100%))에 있으며 투명도 0 */
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 600px; /* 필요 시 조절 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transform: translateX(100%);
-            transition: transform 0.5s ease, opacity 0.5s ease;
-            z-index: 0;
-        }
-
-        /* 새 슬라이드로 선택된 경우(눈에 보이도록) */
-        .slide.active {
-            /* 중앙 배치, 불투명도 */
-            transform: translateX(0);
-            opacity: 1;
-            z-index: 1;
-        }
-
-        /* 'to-left'는 슬라이드가 왼쪽으로 나갈 때 사용하는 클래스 */
-        .slide.to-left {
-            transform: translateX(-100%);
-            opacity: 0; /* 나가면서 서서히 사라지는 효과 */
-        }
-
-        /* 'to-right'는 슬라이드가 오른쪽으로 나갈 때 사용하는 클래스 */
-        .slide.to-right {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-
-        .slide img {
-            width: 90%;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        /* 슬라이드 내부의 a 태그 전체를 블록 요소로 만들고, 내부 텍스트(이미지)를 가운데 정렬 */
-        .slide a {
-            display: block;
-            width: 100%;
-            text-align: center;
-        }
-
-        .slide a img {
-            display: inline-block; /* 또는 block */
-            margin: 0 auto;        /* 가로 중앙 정렬 */
-        }
-
-        /* 이전/다음 버튼 */
-        .prev-btn, .next-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0,0,0,0.3);
-            color: #fff;
-            border: none;
-            font-size: 2em;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            border-radius: 50%;
-            line-height: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s;
-            z-index: 2;
-        }
-        .prev-btn:hover, .next-btn:hover {
-            background-color: rgba(0,0,0,0.5);
-        }
-        .prev-btn {
-            left: 10px;
-        }
-        .next-btn {
-            right: 10px;
-        }
-
-        /* 하단 점(dot) 네비게이션 */
-        .slider-dots {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        .dot {
-            width: 10px;
-            height: 10px;
-            background-color: #ccc;
-            border-radius: 50%;
-            margin: 0 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        .dot:hover {
-            transform: scale(1.2);
-        }
-        .dot.active {
-            background-color: #fff; /* 활성화된 점은 흰색 */
+        .toast-msg.active {
+            opacity: 1; visibility: visible;
+            transform: translateX(-50%) translateY(0);
         }
     </style>
 </head>
-
 <body>
+
 <div class="container">
-    <!-- 헤더 -->
-    <header>
-        <img class="profile-image"
-             src="img/logo.jpg"
-             alt="나쥬 이미지">
-    </header>
+    <!-- Header -->
+    <div class="header">
+        <!-- Floating Promo Toast -->
+        <div id="promoToast" class="promo-toast">
+            <a href="https://nageofficial.com/" target="_blank" style="display:flex; align-items:center; gap:14px; text-decoration:none; color:inherit; flex:1;">
+                <div class="promo-icon"><i class="fa-solid fa-ticket"></i></div>
+                <div class="promo-content">
+                    <h3>WELCOME GIFT 🎁</h3>
+                    <p>신규 가입 시 3,000원 즉시 할인</p>
+                </div>
+            </a>
+            <div class="close-toast" id="closePromo"><i class="fa-solid fa-xmark"></i></div>
+        </div>
 
-    <!-- 본문 -->
-    <div class="content">
+        <div class="header-top-actions">
+            <button class="icon-btn" id="shareBtn"><i class="fa-solid fa-arrow-up-from-bracket"></i></button>
+        </div>
+        
+        <div class="profile-area">
+            <img src="img/logo.jpg" alt="NAGE Profile" class="profile-img">
+        </div>
+        <h1 class="brand-title">NAGE 나쥬</h1>
+        <p class="brand-desc">물속에서 더욱 빛나는 가치<br>Premium Swimwear Brand</p>
 
-        <!-- 프로필 섹션 -->
-        <section class="hero">
-            <div class="profile-name">나쥬 NAGE</div>
-            <div class="profile-description">
-                <h3>물속에서 더욱 더 빛나는<br>나쥬의 가치를 경험해보세요. </h3> <br> 여러분과 함께 헤엄쳐 나아가는 나쥬가 되겠습니다.
-                <br> On se jette à la nage !
-            </div>
-            <div class="social-links">
-                <a href="https://www.instagram.com/nageofficiel/" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="http://pf.kakao.com/_zBVZG" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-comment"></i>
-                </a>
-            </div>
-        </section>
-
-        <!-- 링크 버튼 -->
-        <section class="link" id="link">
-            <div class="button-container">
-                <a href="https://nageofficial.com/" target="_blank" rel="noopener noreferrer">공식몰</a>
-                <a href="https://smartstore.naver.com/nageofficial" target="_blank" rel="noopener noreferrer">네이버 스마트스토어</a>
-            </div>
-        </section>
-
-        <!-- 제품 섹션 -->
-        <section class="products" id="products">
-            <div class="product-grid">
-                  <!-- 상품 1 -->
-              <div class="product-card">
-                <div class="badge-group">
-                  <span class="badge badge-new">NEW</span>
-                  <span class="badge badge-renewal">HOT</span>
-                </div>
-                <a href="https://nageofficial.com/product/soda-%EC%86%8C%EB%8B%A4/68/category/1/display/3/" target="_blank" rel="noopener noreferrer">
-                  <img
-                      src="https://ecimg.cafe24img.com/pg404b58344382077/nageofficial/web/product/medium/20250811/bd5f32fe04032d748bbe8a3978648a14.jpg"
-                      alt="제품2">
-                  <div class="product-card-content">
-                    <h3>Soda 소다</h3>
-                  </div>
-                </a>
-              </div>
-                <!-- 상품 1 -->
-              <div class="product-card">
-                <div class="badge-group">
-                  <span class="badge badge-new">NEW</span>
-                </div>
-                <a href="https://nageofficial.com/product/strawberry-vanilla-%EC%8A%A4%ED%8A%B8%EB%A1%9C%EB%B2%A0%EB%A6%AC-%EB%B0%94%EB%8B%90%EB%9D%BC/67/category/1/display/3/" target="_blank" rel="noopener noreferrer">
-                  <img
-                      src="https://ecimg.cafe24img.com/pg404b58344382077/nageofficial/web/product/big/20250812/3a8e7f9cfd765f9a58a84be0e58af39f.jpg"
-                      alt="제품2">
-                  <div class="product-card-content">
-                    <h3>Strawberry Vanilla 스트로베리 바닐라</h3>
-                  </div>
-                </a>
-              </div>
-              <!-- 상품 1 -->
-              <div class="product-card">
-                <div class="badge-group">
-                  <span class="badge badge-new">NEW</span>
-                </div>
-                <a href="https://nageofficial.com/product/going-penguin-%EA%B3%A0%EC%9E%89-%ED%8E%AD%EA%B7%84/53/category/29/display/1/" target="_blank" rel="noopener noreferrer">
-                  <img
-                      src="https://ecimg.cafe24img.com/pg404b58344382077/nageofficial/web/product/medium/20250811/c48f86767f66fa8603921216584b935d.jpg"
-                      alt="제품2">
-                  <div class="product-card-content">
-                    <h3>Going Penguin 고잉 펭귄</h3>
-                  </div>
-                </a>
-              </div>
-                <!-- 상품 1 -->
-                <div class="product-card">
-                    <a href="https://nageofficial.com/product/317-%EC%98%A4%EC%A0%8410%EC%8B%9C-%EC%98%A4%ED%94%88-check-tangerine-%EC%B2%B4%ED%81%AC-%ED%83%A0%EC%A0%80%EB%A6%B0/62/category/29/display/1/" target="_blank" rel="noopener noreferrer">
-                        <img
-                                src="https://ecimg.cafe24img.com/pg404b58344382077/nageofficial/web/product/medium/20250811/af6147e258d002c5360a5e60d49d28f7.jpg"
-                                alt="제품1">
-                        <div class="product-card-content">
-                            <h3>Check Tangerine 체크 탠저린</h3>
-                        </div>
-                    </a>
-                </div>
-                <!-- 상품 1 -->
-                <div class="product-card">
-                    <a href="https://nageofficial.com/product/317-%EC%98%A4%EC%A0%8410%EC%8B%9C-%EC%98%A4%ED%94%88-check-berry-%EC%B2%B4%ED%81%AC-%EB%B2%A0%EB%A6%AC/63/category/29/display/1/" target="_blank" rel="noopener noreferrer">
-                        <img
-                                src="https://ecimg.cafe24img.com/pg404b58344382077/nageofficial/web/product/big/20250811/7f389bb8089ea875cc66f03e0d52dcc1.jpg"
-                                alt="제품1">
-                        <div class="product-card-content">
-                            <h3>Check Berry 체크 베리</h3>
-                        </div>
-                    </a>
-                </div>
-                <!-- 상품 1 -->
-                <div class="product-card">
-                    <div class="badge-group">
-                        <span class="badge badge-renewal">HOT</span>
-                    </div>
-                    <a href="https://nageofficial.com/product/heartpard-pink-%ED%95%98%ED%8A%B8%ED%8C%8C%EB%93%9C-%ED%95%91%ED%81%AC/61/category/29/display/1/" target="_blank" rel="noopener noreferrer">
-                        <img
-                                src="https://ecimg.cafe24img.com/pg404b58344382077/nageofficial/web/product/medium/20250811/7c5f1c6a052297bae7a0cf12f78359c0.jpg"
-                                alt="제품1">
-                        <div class="product-card-content">
-                            <h3>Heartpard 하트파드 핑크</h3>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 모델 착용샷 슬라이더 섹션 -->
-        <section class="gallery" id="gallery">
-            <div class="slider-container">
-                <!-- 슬라이드 1: a 태그로 감싸서 이미지 클릭 → 이동 가능 -->
-                <div class="slide">
-                    <a href="https://www.instagram.com/p/DOAqN0-Ez7x/?igsh=Nm12Yml4bGR0dGl3" target="_blank" rel="noopener noreferrer">
-                        <img src="img/2years.png"
-                             alt="모델 착용샷">
-                    </a>
-                </div>
-
-                <div class="slide">
-                    <a href="https://nageofficial.com/category/Woman/29/" target="_blank" rel="noopener noreferrer">
-                        <img src="https://ecimg.cafe24img.com/pg404b58344382077/nageofficial/web/upload/ezst/image/ez-image-contents-0hx2kr8-1-14l7hfh-15.jpg"
-                             alt="모델 착용샷">
-                    </a>
-                </div>
-                <!-- 슬라이드 4 -->
-                <div class="slide">
-                    <a href="https://m.kor.lottedfs.com/kr/display/brand?dispShopNo=10074225" target="_blank" rel="noopener noreferrer">
-                        <img src="img/model/lotte.png"
-                             alt="모델 착용샷">
-                    </a>
-                </div>
-           
-                <!-- 이전/다음 버튼 -->
-                <button class="prev-btn">&#10094;</button>
-                <button class="next-btn">&#10095;</button>
-            </div>
-
-            <!-- 하단 점 네비게이션 (4슬라이드) -->
-            <div class="slider-dots">
-                <span class="dot active" data-index="0"></span>
-                <span class="dot" data-index="1"></span>
-                <!-- <span class="dot" data-index="2"></span> -->
-                <!-- <span class="dot" data-index="3"></span> -->
-            </div>
-        </section>
+        <!-- Social -->
+        <div class="social-bar">
+            <a href="https://www.instagram.com/nageofficiel/" target="_blank" class="social-item"><i class="fa-brands fa-instagram"></i></a>
+            <a href="http://pf.kakao.com/_zBVZG" target="_blank" class="social-item"><i class="fa-solid fa-comment"></i></a>
+            <a href="mailto:nageofficial@naver.com" class="social-item"><i class="fa-regular fa-envelope"></i></a>
+        </div>
     </div>
 
-    <!-- 푸터 -->
-    <footer id="contact">
-        <p>© 나쥬 NAGE | All Rights Reserved.</p>
-        <p>nageofficial@naver.com</p>
+    <!-- Main Links -->
+    <div class="link-list">
+        <a href="https://nageofficial.com/" target="_blank" class="link-card">
+            <div class="link-icon"><i class="fa-solid fa-store"></i></div>
+            <div class="link-texts">
+                <div class="link-title">공식 온라인 스토어</div>
+                <div class="link-sub">가장 많은 혜택과 신상품 만나보기</div>
+            </div>
+            <div class="link-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </a>
+        <a href="https://smartstore.naver.com/nageofficial" target="_blank" class="link-card">
+            <div class="link-icon"><i class="fa-brands fa-n"></i></div>
+            <div class="link-texts">
+                <div class="link-title">네이버 스마트스토어</div>
+                <div class="link-sub">네이버페이 구매 & 알림받기 혜택</div>
+            </div>
+            <div class="link-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </a>
+    </div>
+
+    <!-- Best Collection -->
+    <div class="section-header">
+        <div class="section-title">Best Collection</div>
+        <a href="https://nageofficial.com/category/Woman/29/" target="_blank" class="section-more">View All <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="slider-wrap">
+        <div class="slider-container" id="productSlider">
+            <!-- Products -->
+            <a href="https://nageofficial.com/product/bloom-%C3%89toile-%EB%B8%94%EB%A3%B8-%EC%97%90%EB%9A%9C%EC%99%88/71/category/29/display/1/" target="_blank" class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="img/블룸에뚜알.jpg" alt="Bloom Étoile">
+                </div>
+                <div class="product-details">
+                    <div class="p-name">Bloom Étoile</div>
+                    <div class="p-desc">Elegant Mood</div>
+                </div>
+            </a>
+            <a href="https://nageofficial.com/product/ribbon-belle-%EB%A6%AC%EB%B3%B8-%EB%B2%A8/73/category/29/display/1/" target="_blank" class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="img/리본벨.jpg" alt="Ribbon Belle">
+                </div>
+                <div class="product-details">
+                    <div class="p-name">Ribbon Belle</div>
+                    <div class="p-desc">Lovely Detail</div>
+                </div>
+            </a>
+            <a href="https://nageofficial.com/product/femme-fox-%ED%8C%9C%EB%AF%80%ED%8F%AD%EC%8A%A4/15/category/29/display/1/" target="_blank" class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="img/팜므폭스.jpg" alt="Femme Fox">
+                </div>
+                <div class="product-details">
+                    <div class="p-name">Femme Fox</div>
+                    <div class="p-desc">Chic Style</div>
+                </div>
+            </a>
+            <a href="https://nageofficial.com/product/heartpard-pink-%ED%95%98%ED%8A%B8%ED%8C%8C%EB%93%9C-%ED%95%91%ED%81%AC-4rd/61/category/29/display/1/" target="_blank" class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="img/하트파드핑크.jpg" alt="Heartpard Pink">
+                </div>
+                <div class="product-details">
+                    <div class="p-name">Heartpard Pink</div>
+                    <div class="p-desc">Trendy Leopard</div>
+                </div>
+            </a>
+            <a href="https://nageofficial.com/product/soda-%EC%86%8C%EB%8B%A4/68/category/29/display/1/" target="_blank" class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="https://ecimg.cafe24img.com/pg404b58344382077/nageofficial/web/product/medium/20250811/bd5f32fe04032d748bbe8a3978648a14.jpg" alt="Soda">
+                </div>
+                <div class="product-details">
+                    <div class="p-name">Soda</div>
+                    <div class="p-desc">Refreshing Blue</div>
+                </div>
+            </a>
+            <a href="https://nageofficial.com/product/strawberry-vanilla-%EC%8A%A4%ED%8A%B8%EB%A1%9C%EB%B2%A0%EB%A6%AC-%EB%B0%94%EB%8B%90%EB%9D%BC/67/category/29/display/1/" target="_blank" class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="img/스트로베리바닐라.jpg" alt="Strawberry Vanilla">
+                </div>
+                <div class="product-details">
+                    <div class="p-name">Strawberry Vanilla</div>
+                    <div class="p-desc">Sweet Color</div>
+                </div>
+            </a>
+        </div>
+        <!-- Scroll Indicator -->
+        <div class="indicator-track">
+            <div class="indicator-bar" id="scrollBar"></div>
+        </div>
+    </div>
+
+    <!-- Lookbook Grid -->
+    <div class="section-header">
+        <div class="section-title">NAGE Moments</div>
+        <a href="https://www.instagram.com/nageofficiel/" target="_blank" class="section-more">@nageofficiel</a>
+    </div>
+    <div class="grid-container">
+        <div class="grid-item"><img src="img/2years.png" alt="Lookbook" loading="lazy"></div>
+        <div class="grid-item"><img src="img/model/lotte.png" alt="Lookbook" loading="lazy"></div>
+        <div class="grid-item"><img src="https://ecimg.cafe24img.com/pg404b58344382077/nageofficial/web/upload/ezst/image/ez-image-contents-0hx2kr8-1-14l7hfh-15.jpg" alt="Lookbook" loading="lazy"></div>
+        <div class="grid-item"><img src="img/model/new_1.JPG" alt="Lookbook" loading="lazy"></div>
+        <div class="grid-item"><img src="img/model/new_2.JPG" alt="Lookbook" loading="lazy"></div>
+        <div class="grid-item"><img src="img/model/new_3.JPG" alt="Lookbook" loading="lazy"></div>
+        <div class="grid-item"><img src="img/model/new_4.JPG" alt="Lookbook" loading="lazy"></div>
+        <div class="grid-item"><img src="img/model/new_pink_1.JPG" alt="Lookbook" loading="lazy"></div>
+        <div class="grid-item"><img src="img/model/new_pink_2.JPG" alt="Lookbook" loading="lazy"></div>
+    </div>
+
+    <footer>
+        &copy; 2026 NAGE. All rights reserved.<br>
+        Contact. nageofficial@naver.com
     </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-close" id="lightboxClose"><i class="fa-solid fa-xmark"></i></div>
+        <img src="" alt="Enlarged Image" class="lightbox-img" id="lightboxImg">
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-msg" id="toast">
+        <i class="fa-solid fa-circle-check"></i> 링크가 복사되었습니다
+    </div>
 </div>
 
-<!-- 슬라이더 스크립트 -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const slides = document.querySelectorAll('.slide');
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
-        const dots = document.querySelectorAll('.dot');
+    // --- Scroll & Drag Logic ---
+    const slider = document.getElementById('productSlider');
+    const scrollBar = document.getElementById('scrollBar');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let isDragging = false;
 
-        let currentIndex = 0; // 현재 슬라이드 인덱스
-
-        // 초기 설정
-        slides[currentIndex].classList.add('active');
-        dots[currentIndex].classList.add('active');
-
-        // 슬라이드 변경 함수
-        function goToSlide(newIndex, direction) {
-            if (newIndex === currentIndex) return; // 같은 인덱스라면 무시
-
-            const oldIndex = currentIndex;
-            const oldSlide = slides[oldIndex];
-            const newSlide = slides[newIndex];
-
-            // 모든 슬라이드에서 transition 관련 클래스 제거
-            slides.forEach(s => {
-                s.classList.remove('to-left', 'to-right', 'active');
-            });
-
-            // 기존 슬라이드는 지금 그대로 active 상태 -> 이동하면서 사라짐
-            oldSlide.classList.add('active');
-            // 새 슬라이드는 일단 active로 화면에 배치(처음엔 오른쪽/왼쪽 밖에 있음)
-            newSlide.classList.add('active');
-
-            // 방향에 따라 기존 슬라이드를 왼쪽 또는 오른쪽으로 밀어내고,
-            // 새 슬라이드는 반대쪽에서 들어오도록 설정
-            if (direction === 'next') {
-                oldSlide.classList.add('to-left');   // 왼쪽으로 나가도록
-            } else {
-                oldSlide.classList.add('to-right');  // 오른쪽으로 나가도록
-            }
-
-            // 점(dot) 업데이트
-            dots[oldIndex].classList.remove('active');
-            dots[newIndex].classList.add('active');
-
-            currentIndex = newIndex;
-        }
-
-        // 버튼 핸들러
-        prevBtn.addEventListener('click', () => {
-            let newIndex = currentIndex - 1;
-            if (newIndex < 0) newIndex = slides.length - 1;
-            goToSlide(newIndex, 'prev');
-        });
-        nextBtn.addEventListener('click', () => {
-            let newIndex = currentIndex + 1;
-            if (newIndex >= slides.length) newIndex = 0;
-            goToSlide(newIndex, 'next');
-        });
-
-        // 점(●) 클릭
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const newIndex = parseInt(dot.dataset.index, 10);
-                if (newIndex === currentIndex) return;
-                // 어떤 방향으로 갈지 계산
-                if (newIndex > currentIndex) {
-                    goToSlide(newIndex, 'next');
-                } else {
-                    goToSlide(newIndex, 'prev');
-                }
-            });
-        });
-
-        // 2초 간격 자동 슬라이드
-        setInterval(() => {
-            let newIndex = currentIndex + 1;
-            if (newIndex >= slides.length) {
-                newIndex = 0;
-            }
-            goToSlide(newIndex, 'next');
-        }, 5000);
+    // 마우스 드래그 구현
+    slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        isDragging = false;
+        slider.style.cursor = 'grabbing';
+        slider.style.scrollSnapType = 'none';
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
     });
+
+    slider.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.style.cursor = 'grab';
+    });
+
+    slider.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.style.cursor = 'grab';
+        slider.style.scrollSnapType = 'x mandatory';
+    });
+
+    slider.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2;
+        if (Math.abs(walk) > 5) isDragging = true;
+        slider.scrollLeft = scrollLeft - walk;
+    });
+
+    // 드래그 중 링크 클릭 방지
+    slider.addEventListener('click', (e) => {
+        if (isDragging) e.preventDefault();
+    });
+
+    // 인디케이터 업데이트
+    slider.addEventListener('scroll', () => {
+        const scrollableWidth = slider.scrollWidth - slider.clientWidth;
+        const scrolled = slider.scrollLeft;
+        const percentage = (scrolled / scrollableWidth) * 100;
+        const move = percentage * 0.67; 
+        scrollBar.style.left = move + '%';
+    });
+
+    // --- Lightbox Logic ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const gridItems = document.querySelectorAll('.grid-item img');
+
+    gridItems.forEach(img => {
+        img.parentElement.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightbox.classList.add('active');
+        });
+    });
+
+    lightbox.addEventListener('click', (e) => {
+        if (e.target !== lightboxImg) {
+            lightbox.classList.remove('active');
+        }
+    });
+
+    // --- Promo Toast Logic ---
+    const promoToast = document.getElementById('promoToast');
+    const closePromo = document.getElementById('closePromo');
+
+    closePromo.addEventListener('click', (e) => {
+        e.stopPropagation();
+        promoToast.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        promoToast.style.opacity = '0';
+        promoToast.style.transform = 'translateY(-40px)';
+        setTimeout(() => {
+            promoToast.style.display = 'none';
+        }, 500);
+    });
+
+    // --- Share Button Logic ---
+    const shareBtn = document.getElementById('shareBtn');
+    const toast = document.getElementById('toast');
+
+    shareBtn.addEventListener('click', async () => {
+        const shareData = {
+            title: '나쥬 NAGE',
+            text: '물속에서 더욱 빛나는 나쥬의 가치를 경험해보세요.',
+            url: window.location.href
+        };
+
+        try {
+            if (navigator.share) {
+                await navigator.share(shareData);
+            } else {
+                await navigator.clipboard.writeText(window.location.href);
+                showToast();
+            }
+        } catch (err) {
+            // 사용자가 취소하지 않은 에러일 경우 복사 시도
+            if (err.name !== 'AbortError') {
+                await navigator.clipboard.writeText(window.location.href);
+                showToast();
+            }
+        }
+    });
+
+    function showToast() {
+        toast.classList.add('active');
+        setTimeout(() => {
+            toast.classList.remove('active');
+        }, 2000);
+    }
 </script>
+
 </body>
 </html>
